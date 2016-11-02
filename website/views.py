@@ -43,3 +43,14 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('site:results', args=(question.id,)))
+
+def giphy(request, giphy_search):
+    #Query giphy api here
+    url = urllib2.urlopen('http://api.giphy.com/v1/gifs/search?q=' + giphy_search + '=&api_key=dc6zaTOxFJmzC')
+    thing = json.load(url)
+    images = []
+    for i in thing['data']:
+        for j in [i['images']['fixed_width']['url']]:
+            images.append(j)
+    giphy_json = images
+    return render(request, 'site/giphy.html', {'giphy': giphy_json})
