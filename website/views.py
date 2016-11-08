@@ -71,5 +71,7 @@ def grades(request):
     credentials = ServiceAccountCredentials.from_json_keyfile_name('My Project-df4b53779fd9.json', scope)
     gc = gspread.authorize(credentials)
     tables = gc.open("DSI Labs")
+    brad = tables.get_worksheet(0).get_all_values()
+    qingqing = tables.get_worksheet(1).get_all_values()
 
-    return render(request, 'site/grades/all.html', {'tables': tables})
+    return render(request, 'site/grades.html', {'brad': brad, 'qingqing': qingqing})
