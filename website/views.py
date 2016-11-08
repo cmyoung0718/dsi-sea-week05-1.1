@@ -8,7 +8,6 @@ from django.views import generic
 from django.utils import timezone
 from .models import Question
 from .models import Hits
-import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -68,4 +67,9 @@ def tally(request):
     return render(request, 'site/tally.html', {'hits': Hits.objects.all()})
 
 def grades(request):
-    return render(request, 'site/grades/all.html', {'hits': Hits.objects.all()})
+    scope = ['https://spreadsheets.google.com/feeds']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('My Project-df4b53779fd9.json', scope)
+    gc = gspread.authorize(credentials)
+    tables = gc.open("DSI Labs")
+
+    return render(request, 'site/grades/all.html', {'tables': tables})
