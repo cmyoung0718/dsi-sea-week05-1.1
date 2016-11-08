@@ -8,6 +8,9 @@ from django.views import generic
 from django.utils import timezone
 from .models import Question
 from .models import Hits
+import pandas as pd
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 class IndexView(generic.ListView):
     template_name = 'site/index.html'
@@ -63,3 +66,6 @@ def giphy(request, giphy_search):
 
 def tally(request):
     return render(request, 'site/tally.html', {'hits': Hits.objects.all()})
+
+def grades(request):
+    return render(request, 'site/grades/all.html', {'hits': Hits.objects.all()})

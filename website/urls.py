@@ -16,5 +16,7 @@ urlpatterns = [
     # ex: /site/giphy/cat/
     url(r'^giphy/(?P<giphy_search>[a-zA-Z+]+)/$', views.giphy, name='giphy'),
     # ex: /site/giphy/tally/hits/
-    url(r'^giphy/tally/hits/$', views.tally, name='tally')
+    url(r'^giphy/tally/hits/$', views.tally, name='tally'),
+    # ex: /site/grades/all/
+    url(r'^grades/all/$', views.grades, name='grades')
 ]
